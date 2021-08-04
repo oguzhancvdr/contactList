@@ -8,18 +8,10 @@
 
 import 'react-native-gesture-handler';
 import React from 'react';
-import {SafeAreaView, StatusBar, Text} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import AppNavContainer from './src/navigations';
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <SafeAreaView>
-        <StatusBar />
-        <Text>Hello Obi</Text>
-      </SafeAreaView>
-    </NavigationContainer>
-  );
+  return <AppNavContainer />;
 };
 
 export default App;
