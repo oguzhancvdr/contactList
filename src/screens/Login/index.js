@@ -1,11 +1,29 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
+import Container from '../../components/common/Container';
+import Input from '../../components/common/input';
 
 const Login = () => {
+  const [value, onChangeText] = React.useState('');
   return (
-    <View>
-      <Text>Hello from Contact Page</Text>
-    </View>
+    <Container>
+      <Input
+        label="Username"
+        onChangeText={onChangeText}
+        value={value}
+        iconPosition="right"
+        // error={'This field is required'}
+        // keyboardType="numeric"
+      />
+      <Input
+        label="Password"
+        onChangeText={onChangeText}
+        value={value}
+        icon={<Text>HIDE</Text>}
+        iconPosition="right"
+        // keyboardType="numeric"
+      />
+    </Container>
   );
 };
 
