@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 const Register = () => {
   return (
     <View>
-      <Text>Hello from Contact Detail page</Text>
+      <Text>Register</Text>
     </View>
   );
 };
