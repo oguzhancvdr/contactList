@@ -7,7 +7,7 @@ import Input from '../../components/common/input';
 import styles from './styles';
 import {LOGIN} from '../../constants/routeNames';
 
-const RegisterComponent = () => {
+const RegisterComponent = ({onChange, onSubmit, form, errors}) => {
   const {navigate} = useNavigation();
   return (
     <Container>
@@ -25,18 +25,30 @@ const RegisterComponent = () => {
             label="Username"
             iconPosition="right"
             placeholder="Enter Username"
+            onChangeText={value => onChange({name: 'userName', value})}
+            error={errors.userName}
           />
           <Input
             label="First name"
             iconPosition="right"
             placeholder="Enter First name"
+            onChangeText={value => onChange({name: 'firstName', value})}
+            error={errors.firstName}
           />
           <Input
             label="Last name"
             iconPosition="right"
             placeholder="Enter Last name"
+            onChangeText={value => onChange({name: 'lastName', value})}
+            error={errors.lastName}
           />
-          <Input label="Email" iconPosition="right" placeholder="Enter email" />
+          <Input
+            label="Email"
+            iconPosition="right"
+            placeholder="Enter email"
+            error={errors.email}
+            onChangeText={value => onChange({name: 'email', value})}
+          />
 
           <Input
             label="Password"
@@ -44,8 +56,10 @@ const RegisterComponent = () => {
             secureTextEntry={true}
             icon={<Text>SHOW</Text>}
             iconPosition="right"
+            onChangeText={value => onChange({name: 'password', value})}
+            error={errors.password}
           />
-          <CustomButton primary title="Submit" />
+          <CustomButton primary title="Submit" onPress={onSubmit} />
           <View style={styles.createSection}>
             <Text style={styles.infoText}>Already have an account?</Text>
             <TouchableOpacity
