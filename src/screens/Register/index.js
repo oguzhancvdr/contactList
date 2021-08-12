@@ -7,7 +7,6 @@ const Register = () => {
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
-
     if (value !== '') {
       if (name === 'password') {
         if (value.length < 6) {
