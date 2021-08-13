@@ -1,22 +1,42 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext, useCallback} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 import RegisterComponent from '../../components/Signup';
-import axiosInstance from '../../helpers/axiosInterceptor';
+import register, {clearAuthState} from '../../context/actions/auth/register';
+import axios from '../../helpers/axiosInterceptor';
+import {GlobalContext} from '../../context/Provider';
+import {LOGIN} from '../../constants/routeNames';
 
 const Register = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const {navigate} = useNavigation();
+  const {
+    authDispatch,
+    authState: {error, loading, data},
+  } = useContext(GlobalContext);
 
   useEffect(() => {
-    axiosInstance.get('/contacts').catch(err => console.log('err :>> ', err));
-  }, []);
+    if (data) {
+      navigate(LOGIN);
+    }
+  }, [data]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (data || error) {
+        clearAuthState()(authDispatch);
+      }
+    }, [data, error]),
+  );
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
     if (value !== '') {
       if (name === 'password') {
-        if (value.length < 6) {
+        if (value.length < 9) {
           setErrors(prev => {
-            return {...prev, [name]: 'This filed needs more than 5 characters'};
+            return {...prev, [name]: 'This filed needs more than 7 characters'};
           });
         } else {
           setErrors(prev => {
@@ -36,8 +56,6 @@ const Register = () => {
   };
 
   const onSubmit = () => {
-    // validations
-    console.log('form :>> ', form);
     if (!form.userName) {
       setErrors(prev => {
         return {...prev, userName: 'Please add a username'};
@@ -63,6 +81,14 @@ const Register = () => {
         return {...prev, password: 'Please add a password'};
       });
     }
+
+    if (
+      Object.values(form).length === 5 &&
+      Object.values(form).every(item => item.trim().length > 0) &&
+      Object.values(errors).every(item => !item)
+    ) {
+      register(form)(authDispatch);
+    }
   };
 
   return (
@@ -71,6 +97,8 @@ const Register = () => {
       onSubmit={onSubmit}
       form={form}
       errors={errors}
+      error={error}
+      loading={loading}
     />
   );
 };
