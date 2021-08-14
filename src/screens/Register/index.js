@@ -2,7 +2,6 @@ import React, {useState, useEffect, useContext, useCallback} from 'react';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import RegisterComponent from '../../components/Signup';
 import register, {clearAuthState} from '../../context/actions/auth/register';
-import axios from '../../helpers/axiosInterceptor';
 import {GlobalContext} from '../../context/Provider';
 import {LOGIN} from '../../constants/routeNames';
 
