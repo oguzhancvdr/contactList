@@ -6,6 +6,7 @@ import CustomButton from '../../components/common/CustomButton';
 import Input from '../../components/common/input';
 import styles from './styles';
 import {LOGIN} from '../../constants/routeNames';
+import Message from '../common/Message';
 
 const RegisterComponent = ({
   onChange,
@@ -28,7 +29,9 @@ const RegisterComponent = ({
         <Text style={styles.title}>Welcome to Contacts</Text>
         <Text style={styles.subTitle}>Create a free account</Text>
         <View style={styles.form}>
-          {error?.error && <Text>{error.error}</Text>}
+          {error?.error && (
+            <Message message={error?.error} retry danger retryFn={onSubmit} />
+          )}
           <Input
             label="Username"
             iconPosition="right"
@@ -67,7 +70,6 @@ const RegisterComponent = ({
             onChangeText={value => onChange({name: 'password', value})}
             error={errors.password || error?.password?.[0]}
           />
-          {console.log('error :>> ', error)}
           <CustomButton
             primary
             title="Submit"
