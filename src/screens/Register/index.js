@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext, useCallback} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {useFocusEffect} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import RegisterComponent from '../../components/Signup';
 import register, {clearAuthState} from '../../context/actions/auth/register';
 import axios from '../../helpers/axiosInterceptor';
@@ -24,9 +23,11 @@ const Register = () => {
 
   useFocusEffect(
     useCallback(() => {
-      if (data || error) {
-        clearAuthState()(authDispatch);
-      }
+      return () => {
+        if (data || error) {
+          clearAuthState()(authDispatch);
+        }
+      };
     }, [data, error]),
   );
 
