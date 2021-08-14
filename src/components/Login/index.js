@@ -6,6 +6,7 @@ import CustomButton from '../../components/common/CustomButton';
 import Input from '../../components/common/input';
 import styles from './styles';
 import {REGISTER} from '../../constants/routeNames';
+import Message from '../common/Message';
 
 const LoginComponent = () => {
   const {navigate} = useNavigation();
@@ -20,6 +21,18 @@ const LoginComponent = () => {
       <View>
         <Text style={styles.title}>Welcome to Contacts</Text>
         <Text style={styles.subTitle}>Please loign here</Text>
+
+        <Message
+          primary
+          retry
+          message="invalid creaditendals"
+          retryFn={() => {}}
+          onDismiss={() => {}}
+        />
+        <Message onDismiss={() => {}} danger message="invalid creaditendals" />
+        <Message onDismiss={() => {}} info message="invalid creaditendals" />
+        <Message onDismiss={() => {}} success message="invalid creaditendals" />
+
         <View style={styles.form}>
           <Input
             label="Username"
