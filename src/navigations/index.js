@@ -8,7 +8,6 @@ const AppNavContainer = () => {
   const {
     authState: {isLoggedIn},
   } = useContext(GlobalContext);
-  console.log('isLoggedIn :>> ', isLoggedIn);
 
   return (
     <NavigationContainer>
@@ -16,10 +15,5 @@ const AppNavContainer = () => {
     </NavigationContainer>
   );
 };
-
-/**
- * screens >> Home >> Drawer
- * screens >> Auth >>
- */
 
 export default AppNavContainer;
