@@ -1,4 +1,10 @@
-import React, {useState, useEffect, useContext, useCallback} from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useRef,
+} from 'react';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import RegisterComponent from '../../components/Signup';
 import register, {clearAuthState} from '../../context/actions/auth/register';
@@ -9,15 +15,17 @@ const Register = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const {navigate} = useNavigation();
+  const didMountRef = useRef(false);
   const {
     authDispatch,
     authState: {error, loading, data},
   } = useContext(GlobalContext);
 
   useEffect(() => {
-    if (data) {
+    if (data && didMountRef.current) {
       navigate(LOGIN);
     }
+    return () => (didMountRef.current = true);
   }, [data]);
 
   useFocusEffect(

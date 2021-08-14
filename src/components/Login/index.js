@@ -9,7 +9,6 @@ import {REGISTER} from '../../constants/routeNames';
 import Message from '../common/Message';
 
 const LoginComponent = ({error, onChange, onSubmit, loading}) => {
-  console.log('error :>> ', error?.error);
   const {navigate} = useNavigation();
   return (
     <Container>
