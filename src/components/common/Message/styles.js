@@ -9,6 +9,10 @@ export default StyleSheet.create({
     borderRadius: 4,
     justifyContent: 'center',
   },
+  subWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   textInput: {
     flex: 1,
     width: '100%',

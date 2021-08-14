@@ -33,7 +33,7 @@ const Message = ({
       {userDismissed ? null : (
         <TouchableOpacity
           style={[styles.wrapper, {backgroundColor: getBgColor()}]}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={styles.subWrapper}>
             <Text style={{color: colors.white}}>{message}</Text>
             {retry && !typeof onDismiss === 'function' && (
               <TouchableOpacity onPress={retryFn}>
