@@ -1,5 +1,5 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {
   CONTACT_DETAIL,
   CONTACT_LIST,
@@ -12,7 +12,7 @@ import CreateContact from '../screens/CreateContact';
 import Settings from '../screens/Settings';
 
 const HomeNavigator = () => {
-  const HomeStack = createNativeStackNavigator();
+  const HomeStack = createStackNavigator();
   return (
     <HomeStack.Navigator initialRouteName={CONTACT_LIST}>
       <HomeStack.Screen name={CONTACT_LIST} component={Contacts} />
