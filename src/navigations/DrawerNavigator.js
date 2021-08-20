@@ -1,16 +1,19 @@
 import React from 'react';
-import {useWindowDimensions} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeNavigator from './HomeNavigator';
 import {HOME_NAVIGATOR} from '../constants/routeNames';
+import SideMenu from './SideMenu';
 
+const getDrawerContent = navigation => {
+  return <SideMenu navigation={navigation} />;
+};
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
-  const dimensions = useWindowDimensions();
   return (
     <Drawer.Navigator
+      drawerContent={({navigation}) => getDrawerContent(navigation)}
       screenOptions={{
-        drawerType: dimensions.width >= 768 ? 'permanent' : 'front',
+        drawerType: 'slide',
         headerShown: false,
       }}>
       <Drawer.Screen name={HOME_NAVIGATOR} component={HomeNavigator} />
