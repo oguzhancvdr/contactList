@@ -8,7 +8,14 @@ import styles from './styles';
 import {REGISTER} from '../../constants/routeNames';
 import Message from '../common/Message';
 
-const LoginComponent = ({error, onChange, onSubmit, loading}) => {
+const LoginComponent = ({
+  error,
+  onChange,
+  onSubmit,
+  loading,
+  form,
+  justSignedUp,
+}) => {
   const {navigate} = useNavigation();
   const [isSecureEntry, setIsSecureEntry] = useState(true);
 
@@ -26,6 +33,13 @@ const LoginComponent = ({error, onChange, onSubmit, loading}) => {
         <Text style={styles.title}>Welcome to Contacts</Text>
         <Text style={styles.subTitle}>Please loign here</Text>
         <View style={styles.form}>
+          {justSignedUp && (
+            <Message
+              onDismiss={() => {}}
+              success
+              message="Account created successfuly"
+            />
+          )}
           {error && !error?.error && (
             <Message
               onDismiss={() => {}}
@@ -38,6 +52,7 @@ const LoginComponent = ({error, onChange, onSubmit, loading}) => {
             label="Username"
             iconPosition="right"
             placeholder="Enter Username"
+            value={form.userName || ''}
             onChangeText={value => onChange({name: 'userName', value})}
           />
           <Input
