@@ -1,11 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
-import Container from '../../components/common/Container';
+import React, {useEffect, useState} from 'react';
+import {TouchableOpacity} from 'react-native';
 import Icon from '../../components/common/Icon';
+import ContactsComponent from '../../components/ContactsComponent';
 
 const Contacts = () => {
   const {setOptions, toggleDrawer} = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     setOptions({
       headerLeft: () => (
@@ -23,9 +24,10 @@ const Contacts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Container>
-      <Text>Hello from Contact Page</Text>
-    </Container>
+    <ContactsComponent
+      modalVisible={modalVisible}
+      setModalVisible={setModalVisible}
+    />
   );
 };
 
