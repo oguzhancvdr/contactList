@@ -29,7 +29,6 @@ const AppNavContainer = () => {
   useEffect(() => {
     getUser();
   }, [isLoggedIn]);
-  console.log('isLoggedIn :>> ', isLoggedIn);
 
   return (
     <>
