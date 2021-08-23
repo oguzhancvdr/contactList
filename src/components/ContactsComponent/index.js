@@ -1,9 +1,34 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import AppModal from '../common/Modal';
-import CustomButton from '../common/CustomButton';
+import Message from '../common/Message';
+import colors from '../../assets/theme/colors';
 
-const ContactsComponent = ({modalVisible, setModalVisible}) => {
+const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
+  const ListEmptyComponent = () => {
+    return (
+      <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
+        <Message info message="Contacts are not found" />
+      </View>
+    );
+  };
+  console.log({data, loading});
+
+  const renderItem = ({item}) => {
+    console.log('item: ', item);
+    return (
+      <TouchableOpacity>
+        <Text>Contact</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View>
       <AppModal
@@ -17,11 +42,19 @@ const ContactsComponent = ({modalVisible, setModalVisible}) => {
         }
         modalFooter={<></>}
       />
-      <CustomButton
-        title="Open Modal"
-        secondary
-        onPress={() => setModalVisible(true)}
-      />
+      {loading && (
+        <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      )}
+      {!loading && (
+        <FlatList
+          renderItem={renderItem}
+          data={data}
+          keyExtractor={item => String(item.id)}
+          ListEmptyComponent={ListEmptyComponent}
+        />
+      )}
     </View>
   );
 };
