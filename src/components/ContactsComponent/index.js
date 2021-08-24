@@ -5,26 +5,42 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import AppModal from '../common/Modal';
 import Message from '../common/Message';
 import colors from '../../assets/theme/colors';
-
+import Icon from '../common/Icon';
+import styles from './styles';
 const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
   const ListEmptyComponent = () => {
     return (
-      <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
+      <View style={styles.messageContainer}>
         <Message info message="Contacts are not found" />
       </View>
     );
   };
-  console.log({data, loading});
 
   const renderItem = ({item}) => {
-    console.log('item: ', item);
+    const {contact_picture, first_name, last_name, phone_number} = item;
     return (
-      <TouchableOpacity>
-        <Text>Contact</Text>
+      <TouchableOpacity style={styles.itemContainer}>
+        <View style={styles.item}>
+          {contact_picture ? (
+            <Image
+              style={styles.profileFrame}
+              source={{uri: contact_picture}}
+            />
+          ) : (
+            <View style={styles.emptyImg} />
+          )}
+          <View>
+            <Text>{first_name}</Text>
+            <Text>{last_name}</Text>
+          </View>
+          <Text>{phone_number}</Text>
+        </View>
+        <Icon name="right" type="ant" />
       </TouchableOpacity>
     );
   };
@@ -43,17 +59,20 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
         modalFooter={<></>}
       />
       {loading && (
-        <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
+        <View style={styles.loadingIndicator}>
           <ActivityIndicator size="large" color={colors.primary} />
         </View>
       )}
       {!loading && (
-        <FlatList
-          renderItem={renderItem}
-          data={data}
-          keyExtractor={item => String(item.id)}
-          ListEmptyComponent={ListEmptyComponent}
-        />
+        <View style={styles.listContainer}>
+          <FlatList
+            renderItem={renderItem}
+            data={data}
+            keyExtractor={item => String(item.id)}
+            ListEmptyComponent={ListEmptyComponent}
+            ListFooterComponent={<View style={styles.footerCompContainer} />}
+          />
+        </View>
       )}
     </View>
   );
