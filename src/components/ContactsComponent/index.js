@@ -83,7 +83,7 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
             renderItem={renderItem}
             data={data}
             ItemSeparatorComponent={() => (
-              <View style={{height: 0.5, backgroundColor: colors.grey}}> </View>
+              <View style={{height: 0.5, backgroundColor: colors.grey}} />
             )}
             keyExtractor={item => String(item.id)}
             ListEmptyComponent={ListEmptyComponent}
