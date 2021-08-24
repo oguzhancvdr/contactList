@@ -1,12 +1,5 @@
-import React, {useState} from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
-import {color} from 'react-native-reanimated';
+import React from 'react';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import colors from '../../../assets/theme/colors';
 import styles from './styles';
 
@@ -40,7 +33,11 @@ const CustomButton = ({
       onPress={onPress}
       style={[styles.wrapper, {backgroundColor: getBgColor()}]}>
       <View style={[styles.loaderSection]}>
-        {loading && <ActivityIndicator color={primary ? colors.secondary : colors.primary} />}
+        {loading && (
+          <ActivityIndicator
+            color={primary ? colors.secondary : colors.primary}
+          />
+        )}
         {title && (
           <Text
             style={{
