@@ -6,11 +6,13 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingRight: 20,
+    alignItems: 'center',
   },
   item: {
     flexDirection: 'row',
     paddingVertical: 10,
     paddingHorizontal: 20,
+    alignItems: 'center',
   },
   loadingIndicator: {
     paddingVertical: 100,
@@ -26,6 +28,10 @@ export default StyleSheet.create({
     width: 45,
     height: 45,
     backgroundColor: colors.grey,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100,
   },
   profileFrame: {
     width: 45,
@@ -36,5 +42,16 @@ export default StyleSheet.create({
     paddingVertical: 100,
     paddingHorizontal: 100,
     alignItems: 'center',
+  },
+  contactListContainer: {
+    backgroundColor: colors.white,
+  },
+  name: {
+    fontSize: 17,
+  },
+  phoneNumber: {
+    opacity: 0.6,
+    fontSize: 14,
+    paddingVertical: 5,
   },
 });
