@@ -39,16 +39,16 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
           ) : (
             <View style={styles.emptyImg}>
               <Text style={[styles.name, {color: colors.white}]}>
-                {first_name[0]}
+                {first_name?.[0]}
               </Text>
               <Text style={[styles.name, {color: colors.white}]}>
-                {last_name[0]}
+                {last_name?.[0]}
               </Text>
             </View>
           )}
           <View style={{paddingLeft: 20}}>
             <View style={{flexDirection: 'row'}}>
-              <Text style={styles.name}>{first_name}</Text>
+              <Text style={[styles.name, {marginRight: 5}]}>{first_name}</Text>
               <Text style={styles.name}>{last_name}</Text>
             </View>
             <Text
