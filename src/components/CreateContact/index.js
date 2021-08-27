@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, View, Text, Switch} from 'react-native';
+import {Image, View, Text, Switch, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Container from '../common/Container';
 import Input from '../common/input';
@@ -7,6 +7,7 @@ import CustomButton from '../common/CustomButton';
 import CountryPicker from 'react-native-country-picker-modal';
 import {DEFAULT_IMAGE_URI} from '../../constants/general.js';
 import colors from '../../assets/theme/colors';
+import ImagePicker from '../common/ImagePicker';
 
 const CreateContactComponent = ({
   onChangeText,
@@ -16,6 +17,9 @@ const CreateContactComponent = ({
   toggleValueChange,
   loading,
   error,
+  sheetRef,
+  openSheet,
+  closeSheet,
 }) => {
   const onSelect = v => {
     const phoneCode = v.callingCode[0];
@@ -32,7 +36,9 @@ const CreateContactComponent = ({
           height={150}
           style={styles.avatar}
         />
-        <Text style={styles.chooseText}>Choose image</Text>
+        <TouchableOpacity onPress={openSheet}>
+          <Text style={styles.chooseText}>Choose image</Text>
+        </TouchableOpacity>
         <Input
           label="First name"
           placeholder="Enter a first name"
@@ -89,6 +95,7 @@ const CreateContactComponent = ({
           onPress={onSubmit}
         />
       </Container>
+      <ImagePicker ref={sheetRef} />
     </View>
   );
 };
