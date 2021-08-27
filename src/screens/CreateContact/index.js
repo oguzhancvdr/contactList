@@ -14,13 +14,18 @@ const CreateContact = () => {
   } = useContext(GlobalContext);
   const [form, setForm] = useState({});
   const {navigate} = useNavigation();
-
+  
   const onChangeText = ({name, value}) => {
     setForm({...form, [name]: value});
   };
-
+  
   const onSubmit = () => {
+    console.log('form :>> ', form);
     createContact(form)(contactsDispatch)(() => navigate(CONTACT_LIST));
+  };
+
+  const toggleValueChange = () => {
+    setForm({...form, isFavorite: !form.isFavorite});
   };
 
   return (
@@ -31,6 +36,7 @@ const CreateContact = () => {
       onSubmit={onSubmit}
       loading={loading}
       error={error}
+      toggleValueChange={toggleValueChange}
     />
   );
 };
