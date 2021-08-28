@@ -19,7 +19,8 @@ const CreateContactComponent = ({
   error,
   sheetRef,
   openSheet,
-  closeSheet,
+  onFileSelected,
+  localFile,
 }) => {
   const onSelect = v => {
     const phoneCode = v.callingCode[0];
@@ -31,7 +32,7 @@ const CreateContactComponent = ({
     <View style={styles.container}>
       <Container>
         <Image
-          source={{uri: DEFAULT_IMAGE_URI}}
+          source={{uri: localFile?.path || DEFAULT_IMAGE_URI}}
           width={150}
           height={150}
           style={styles.avatar}
@@ -95,7 +96,7 @@ const CreateContactComponent = ({
           onPress={onSubmit}
         />
       </Container>
-      <ImagePicker ref={sheetRef} />
+      <ImagePicker ref={sheetRef} onFileSelected={onFileSelected} />
     </View>
   );
 };
