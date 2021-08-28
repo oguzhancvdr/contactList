@@ -4,18 +4,47 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import colors from '../../../assets/theme/colors';
 import Icon from '../Icon';
 import styles from './styles';
+import ImagePickerCorp from 'react-native-image-crop-picker';
 
-const ImagePicker = forwardRef(({}, ref) => {
+const ImagePicker = forwardRef(({onFileSelected}, ref) => {
   const opitons = [
     {
       name: 'Take from camera',
       icon: <Icon name="camera" type="ant" size={22} color={colors.grey} />,
-      onPress: () => {},
+      onPress: () => {
+        ImagePickerCorp?.openCamera({
+          width: 300,
+          height: 300,
+          cropping: true,
+          // multiple: true,
+          freeStyleCropEnabled: true,
+        })
+          .then(images => {
+            onFileSelected(images);
+          })
+          .catch(err => {
+            console.log('err :>> ', err);
+          });
+      },
     },
     {
       name: 'Choose from galery',
       icon: <Icon name="image" type="material" size={22} color={colors.grey} />,
-      onPress: () => {},
+      onPress: () => {
+        ImagePickerCorp?.openPicker({
+          width: 300,
+          height: 300,
+          cropping: true,
+          // multiple: true,
+          freeStyleCropEnabled: true,
+        })
+          .then(images => {
+            onFileSelected(images);
+          })
+          .catch(err => {
+            console.log('err :>> ', err);
+          });
+      },
     },
   ];
   return (
