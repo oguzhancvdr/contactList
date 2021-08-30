@@ -12,15 +12,15 @@ const AppModal = ({
 }) => {
   return (
     <Modal visible={modalVisible} transparent>
-      <TouchableOpacity
-        onPress={() => setModalVisible(false)}
-        style={styles.wrapper}>
+      <View style={styles.wrapper}>
         <View style={styles.modalView}>
           <ScrollView>
             <View style={styles.header}>
               <View />
               <Text style={styles.title}>{title || 'Contacts'}</Text>
-              <Icon name="close" type="ant" size={25} />
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <Icon name="close" type="ant" size={25} />
+              </TouchableOpacity>
             </View>
             <View style={styles.footerSeparator} />
             <View style={styles.body}>{modalBody}</View>
@@ -40,7 +40,7 @@ const AppModal = ({
             )}
           </ScrollView>
         </View>
-      </TouchableOpacity>
+      </View>
     </Modal>
   );
 };
