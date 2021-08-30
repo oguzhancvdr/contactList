@@ -21,4 +21,9 @@ export default StyleSheet.create({
     height: 0.5,
     backgroundColor: colors.grey,
   },
+  modalBodyContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
 });
