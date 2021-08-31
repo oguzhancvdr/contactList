@@ -75,7 +75,7 @@ const ContactsComponent = ({data, loading, sortBy}) => {
               renderItem={renderItem}
               data={
                 sortBy
-                  ? data.sort((a, b) => {
+                  ? data?.sort((a, b) => {
                       if (sortBy === 'First Name') {
                         if (b.first_name > a.first_name) {
                           return -1;
