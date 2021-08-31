@@ -4,6 +4,7 @@ import CreateContactComponent from '../../components/CreateContact';
 import createContact from '../../context/actions/contacts/createContact';
 import {GlobalContext} from '../../context/Provider';
 import {CONTACT_LIST} from '../../constants/routeNames';
+import uploadImage from '../../helpers/uploadImage.';
 
 const CreateContact = () => {
   const {
@@ -12,7 +13,9 @@ const CreateContact = () => {
       createContact: {loading, error},
     },
   } = useContext(GlobalContext);
+
   const [form, setForm] = useState({});
+  const [isUploading, setIsUploading] = useState(false);
   const [localFile, setLocalFile] = useState(null);
   const {navigate} = useNavigation();
   const sheetRef = useRef(null);
@@ -33,7 +36,20 @@ const CreateContact = () => {
   };
 
   const onSubmit = () => {
-    console.log('form :>> ', form);
+    if (localFile?.size) {
+      setIsUploading(true);
+      uploadImage(localFile)(url => {
+        setIsUploading(false);
+        createContact({...form, contactPicture: url})(contactsDispatch)(() =>
+          navigate(CONTACT_LIST),
+        );
+      })(err => {
+        if (err) {
+          setIsUploading(false);
+        }
+      });
+    }
+
     createContact(form)(contactsDispatch)(() => navigate(CONTACT_LIST));
   };
 
@@ -44,7 +60,6 @@ const CreateContact = () => {
   const onFileSelected = images => {
     closeSheet();
     setLocalFile(images);
-    console.log('images on Screen :>> ', images);
   };
 
   return (
@@ -53,7 +68,7 @@ const CreateContact = () => {
       form={form}
       setForm={setForm}
       onSubmit={onSubmit}
-      loading={loading}
+      loading={loading || isUploading}
       error={error}
       toggleValueChange={toggleValueChange}
       sheetRef={sheetRef}
