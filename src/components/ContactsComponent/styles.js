@@ -55,7 +55,7 @@ export default StyleSheet.create({
     paddingVertical: 5,
   },
   floatingActionButton: {
-    backgroundColor: 'red',
+    backgroundColor: '#47C1D3',
     width: 55,
     height: 55,
     position: 'absolute',
