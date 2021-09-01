@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
-import {CREATE_CONTACT} from '../../constants/routeNames';
+import {CONTACT_DETAIL, CREATE_CONTACT} from '../../constants/routeNames';
 import Message from '../common/Message';
 import colors from '../../assets/theme/colors';
 import Icon from '../common/Icon';
@@ -16,6 +16,7 @@ import styles from './styles';
 
 const ContactsComponent = ({data, loading, sortBy}) => {
   const {navigate} = useNavigation();
+
   const ListEmptyComponent = () => {
     return (
       <View style={styles.messageContainer}>
@@ -28,7 +29,11 @@ const ContactsComponent = ({data, loading, sortBy}) => {
     const {contact_picture, first_name, last_name, phone_number, country_code} =
       item;
     return (
-      <TouchableOpacity style={styles.itemContainer}>
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => {
+          navigate(CONTACT_DETAIL, {item});
+        }}>
         <View style={styles.item}>
           {contact_picture ? (
             <Image
