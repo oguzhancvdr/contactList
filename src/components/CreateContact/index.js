@@ -32,7 +32,9 @@ const CreateContactComponent = ({
     <View style={styles.container}>
       <Container>
         <Image
-          source={{uri: localFile?.path || DEFAULT_IMAGE_URI}}
+          source={{
+            uri: localFile?.path || localFile || DEFAULT_IMAGE_URI,
+          }}
           width={150}
           height={150}
           style={styles.avatar}
@@ -42,6 +44,7 @@ const CreateContactComponent = ({
         </TouchableOpacity>
         <Input
           label="First name"
+          value={form?.firstName || ''}
           placeholder="Enter a first name"
           onChangeText={value =>
             onChangeText({name: 'firstName', value: value})
@@ -50,6 +53,7 @@ const CreateContactComponent = ({
         />
         <Input
           label="Last name"
+          value={form?.lastName || ''}
           placeholder="Enter a last name"
           onChangeText={value => onChangeText({name: 'lastName', value: value})}
           error={error?.last_name?.[0]}
@@ -59,7 +63,7 @@ const CreateContactComponent = ({
             <CountryPicker
               withFilter
               withFlag
-              countryCode={form.countryCode || undefined}
+              countryCode={form?.countryCode || undefined}
               withCountryNameButton={false}
               withCallingCodeButton
               withAlphaFilter
@@ -68,6 +72,7 @@ const CreateContactComponent = ({
               onSelect={v => onSelect(v)}
             />
           }
+          value={form?.phoneNumber || ''}
           style={{paddingLeft: 10}}
           iconPosition="left"
           onChangeText={value =>
@@ -84,7 +89,7 @@ const CreateContactComponent = ({
             thumbColor="#ffffff"
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleValueChange}
-            value={form.isFavorite}
+            value={form?.isFavorite || false}
           />
         </View>
 
