@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useRef, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import ContactDetails from '../../components/ContactDetails';
 import {View, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
@@ -6,12 +6,17 @@ import Icon from '../../components/common/Icon';
 import colors from '../../assets/theme/colors';
 import {GlobalContext} from '../../context/Provider';
 import deleteContact from '../../context/actions/contacts/deleteContact';
-import {navigate} from '../../navigations/RootNavigator';
 import {CONTACT_LIST} from '../../constants/routeNames';
+import uploadImage from '../../helpers/uploadImage.';
+import editContact from '../../context/actions/contacts/editContact';
 
 const ContactDetail = () => {
   const {params: {item = {}} = {}} = useRoute();
-  const {setOptions} = useNavigation();
+  const {setOptions, navigate} = useNavigation();
+  const sheetRef = useRef(null);
+  const [localFile, setLocalFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isSucceed, setIsSucceed] = useState(false);
 
   const {
     contactsDispatch,
@@ -75,7 +80,60 @@ const ContactDetail = () => {
     }
   }, [item, loading]);
 
-  return <ContactDetails contact={item} />;
+  const closeSheet = () => {
+    if (sheetRef.current) {
+      sheetRef.current.close();
+    }
+  };
+  const openSheet = () => {
+    if (sheetRef.current) {
+      sheetRef.current.open();
+    }
+  };
+
+  const onFileSelected = image => {
+    closeSheet();
+    setLocalFile(image);
+    setIsUploading(true);
+    uploadImage(image)(url => {
+      const {
+        first_name: firstName,
+        last_name: lastName,
+        is_favorite: isFavorite,
+        phone_number: phoneNumber,
+        country_code: phoneCode,
+      } = item;
+      editContact(
+        {
+          firstName,
+          lastName,
+          isFavorite,
+          phoneNumber,
+          phoneCode,
+          contactPicture: url,
+        },
+        item.id,
+      )(contactsDispatch)(() => {
+        setIsUploading(false);
+        setIsSucceed(true);
+      });
+    })(err => {
+      console.log('err in upload func :>> ', err);
+      setIsUploading(false);
+    });
+  };
+
+  return (
+    <ContactDetails
+      contact={item}
+      sheetRef={sheetRef}
+      localFile={localFile}
+      openSheet={openSheet}
+      onFileSelected={onFileSelected}
+      isUploading={isUploading}
+      isSucceed={isSucceed}
+    />
+  );
 };
 
 export default ContactDetail;
