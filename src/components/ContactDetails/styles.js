@@ -73,4 +73,10 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   editBtn: {alignSelf: 'flex-end', marginRight: 20, width: 200},
+  avatar: {
+    width: 150,
+    height: 150,
+    borderRadius: 100,
+    alignSelf: 'center',
+  },
 });
