@@ -76,6 +76,11 @@ const CreateContact = () => {
     }
   };
 
+  const onFileSelected = images => {
+    closeSheet();
+    setLocalFile(images);
+  };
+
   const onChangeText = ({name, value}) => {
     setForm({...form, [name]: value});
   };
@@ -123,11 +128,6 @@ const CreateContact = () => {
 
   const toggleValueChange = () => {
     setForm({...form, isFavorite: !form.isFavorite});
-  };
-
-  const onFileSelected = images => {
-    closeSheet();
-    setLocalFile(images);
   };
 
   return (
