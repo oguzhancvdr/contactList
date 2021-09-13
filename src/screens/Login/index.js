@@ -14,7 +14,6 @@ const Login = () => {
       setJustSignedUp(true);
       setForm({...form, userName: params.data.username});
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);
 
   const {
