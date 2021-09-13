@@ -8,7 +8,7 @@ const Logout = () => {
 
   useEffect(() => {
     logoutUser()(authDispatch);
-  }, []);
+  }, [authDispatch]);
 
   return <ActivityIndicator />;
 };
